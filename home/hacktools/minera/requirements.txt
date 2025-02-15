@@ -1,0 +1,5 @@
+ipa
+eng_to_ipa
+webbrowser
+colored
+requests
