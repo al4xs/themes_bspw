@@ -48,7 +48,7 @@ Abaixo, uma pequena demonstração de como seu ambiente vai ficar:
 
 `ALT + R` = faz um reload
 
-`Windows + L` = bloqueia a tela
+`Windows + x` = bloqueia a tela
 
 `Windows + Shift + ⬆⬇⮕⬅` = troca a workspace de lugar
 
