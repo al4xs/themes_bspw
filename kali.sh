@@ -52,6 +52,7 @@ echo -e "${White} [${Blue}i${White}] Hello ${Red}${USERNAME}${White}, This is th
 # INSTALLATION OF MISSING DEPENDENCIES
 missing_dependencies () {
 echo ""
+sudo apt update -y
 echo -e "${White} [${Blue}i${White}] Step 9 installing missing dependencies"
 sleep 2
 echo ""
@@ -373,13 +374,13 @@ if [[ $quest == "y" || $quest == "yes" || $quest == "Y" ]]; then
         if which firefox >/dev/null; then
                 echo ""
                 echo -e "${White} [${Blue}+${White}] Firefox is installed, installing Theme configuration"
-                cp -r ${RUTE}/home/firefox/chrome/ "$(locate xulstore.json | grep '.mozilla/firefox' | cut -d '/' -f 1-6)/"
+                sudo cp -r ${RUTE}/home/firefox/chrome/ "$(locate xulstore.json | grep '.mozilla/firefox' | cut -d '/' -f 1-6)/"
                 sleep 2
         else
                 echo ""
                 echo -e "${White} [${Red}-${White}] Firefox is not installed, installing Firefox"
                 sudo apt install firefox -y
-                cp -r ${RUTE}/home/firefox/chrome/ "$(locate xulstore.json | grep '.mozilla/firefox' | cut -d '/' -f 1-6)/"
+                sudo cp -r ${RUTE}/home/firefox/chrome/ "$(locate xulstore.json | grep '.mozilla/firefox' | cut -d '/' -f 1-6)/"
                 sleep 2
         fi
         if which wal >/dev/null; then
