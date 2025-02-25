@@ -12,7 +12,7 @@ BSPWM feito para kali linux, perfeito para jogar ctf e trabalhar.
 
 Basta seguir os comandos abaixo para o auto-install e ele fará tudo pra você!
 
-1.- Uso do script
+1.- Faca uso do script como usuario comum e nao administrativo:
 
 ```bash
 git clone https://github.com/al4xs/kaliSung
@@ -42,21 +42,21 @@ Abaixo, uma pequena demonstração de como seu ambiente vai ficar:
 
 `Windows + ENTER` = abre o terminal
 
-`Windows + D` = abre o menu principal
+`Windows + d` = abre o menu principal
 
-`Windows + W` = fecha abas
+`Windows + w` = fecha abas
 
-`ALT + R` = faz um reload
+`Windows + r` = faz um reload no sistema
 
 `Windows + x` = bloqueia a tela
 
 `Windows + Shift + ⬆⬇⮕⬅` = troca a workspace de lugar
 
-`Windows + ⬆⬇⮕⬅` = troca de workspace
+`Windows + ⬆⬇⮕⬅` = navega nos terminais abertos
 
-`Windows + Alt + ⬆⬇⮕⬅` = Redimenciona as workspaces
+`Windows + Alt + ⬆⬇⮕⬅` = Redimenciona os terminais
 
-`CTRL + Windows + Alt + ⬆⬇⮕⬅` = seleciona uma workspace
+`CTRL + Windows + Alt + ⬆⬇⮕⬅` = seleciona uma workspace para abrir
 
 `CTRL + Windows + Alt + Backspace` = cancela uma workspace
 
@@ -85,11 +85,13 @@ obs: Todos os atalhos pré-definidos você pode encontrar em: ~/.config/sxhkd/sx
 
 `cmatrix`  Simula o matrix
 
-`matrix`  Simula a nostalgia do filme matrix
+`matrix`  Simula a nostalgia do filme 'knock knock neo'
 
 `hollywood`  Simula hacking de hollywood
 
-`bash ~/pipes.sh`  Cobrinha no terminal
+`server`  abre o servidor na porta 80
+
+`pipes`  Cobrinha no terminal
 
 `catn arquivo.txt`  Visualiza um arquivo com cores
 

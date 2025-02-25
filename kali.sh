@@ -60,7 +60,7 @@ sudo apt install rofi fonts-firacode fonts-cantarell lxappearance nitrogen lsd b
 echo ""
 sudo apt install scrub bat tty-clock openvpn feh pulseaudio-utils git lolcat -y
 echo "Install my favorite tools"
-sudo apt install cmatrix flameshot hollywood bpytop apktool seclists villain rlwrap python3-venv aircrack-ng strace binwalk irssi imagemagick mplayer jq cmatrix weechat hexchat ltrace numlockx sublist3r htop neofetch kali-community-wallpapers feroxbuster naabu massdns obsidian golang pipx autorecon golang finalrecon ffuf findomain trufflehog cool-retro-term -y
+sudo apt install cmatrix flameshot hollywood bpytop apktool seclists villain rlwrap python3-venv aircrack-ng strace binwalk irssi imagemagick mplayer jq cmatrix weechat hexchat ltrace numlockx sublist3r htop neofetch kali-community-wallpapers feroxbuster naabu massdns obsidian golang-go pipx autorecon golang finalrecon ffuf findomain trufflehog cool-retro-term -y
 echo "Install with pip3"
 pipx install pywal metafinder uro bhedak arjun
 pip3 install jsbeautifier eng_to_ipa requests argparse colored urllib3 --break-system-packages
