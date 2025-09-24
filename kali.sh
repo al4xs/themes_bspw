@@ -27,18 +27,18 @@ DISTRIBUTION=$(uname -o)
 HOST=$(uname -n)
 BIT=$(uname -m)
 RUTE=$(pwd)
-FDIR=$(${LOCALPATH}/.local/share/fonts/)
+FDIR="${LOCALPATH}/.local/share/fonts/"
 
 # SCRIPT PRESENTATION
 banner () {
-echo -e "${White} ╔───────────────────────────────────────────────╗                 	"
+echo -e "${White} ╔───────────────────────────────────────────────╗                     "
 echo -e "${White} |${Cyan} ██████╗ ███████╗██████╗ ██╗    ██╗███╗   ███╗${White} |      "
 echo -e "${White} |${Cyan} ██╔══██╗██╔════╝██╔══██╗██║    ██║████╗ ████║${White} |      "
 echo -e "${White} |${Cyan} ██████╔╝███████╗██████╔╝██║ █╗ ██║██╔████╔██║${White} |      "
-echo -e "${White} |${Cyan} ██╔══██╗╚════██║██╔═══╝ ██║███╗██║██║╚██╔╝██║${White} |	"
-echo -e "${White} |${Cyan} ██████╔╝███████║██║     ╚███╔███╔╝██║ ╚═╝ ██║${White} |	"
-echo -e "${White} |${Cyan} ╚═════╝ ╚══════╝╚═╝      ╚══╝╚══╝ ╚═╝     ╚═╝${White} |	"
-echo -e "${White} ┖───────────────────────────────────────────────┙			"
+echo -e "${White} |${Cyan} ██╔══██╗╚════██║██╔═══╝ ██║███╗██║██║╚██╔╝██║${White} |      "
+echo -e "${White} |${Cyan} ██████╔╝███████║██║     ╚███╔███╔╝██║ ╚═╝ ██║${White} |      "
+echo -e "${White} |${Cyan} ╚═════╝ ╚══════╝╚═╝      ╚══╝╚══╝ ╚═╝     ╚═╝${White} |      "
+echo -e "${White} ┖───────────────────────────────────────────────┙                     "
 echo ""
 echo -e "${White} [${Blue}i${White}] BSPWM | Hacker environment automation script."
 echo -e "${White} [${Blue}i${White}] Michael Alves ( Al4xs ) or Sung jin woo"
@@ -79,225 +79,225 @@ read quest
 
 
 if [[ $quest == "y" || $quest == "yes" || $quest == "Y" ]]; then
-	echo ""
-	echo -e "${White} [${Blue}i${White}] Step 1 checking if bspwm and sxhkd are installed"
-	sleep 2
-	if which bspwm >/dev/null; then
-		echo ""
-		echo -e "${White} [${Blue}+${White}] BSPWM is installed, installing configuration"
-		sleep 2
-		cd ${RUTE}/.config
-		sudo rm -rf ${LOCALPATH}/.config/bspwm
-		cp -r bspwm ${LOCALPATH}/.config/bspwm
-		chmod +x ${LOCALPATH}/.config/bspwm/bspwmrc
-	else
-		echo ""
-		echo -e "${White} [${Red}-${White}] BSPWM is not installed, installing bspwm"
-		sleep 2
-		echo ""
-		sudo apt update
-		echo ""
-		sudo apt install bspwm -y
-		echo ""
-		echo -e "${White} [${Blue}+${White}] BSPWM is installed, installing configuration"
-		sleep 2
-		cd ${RUTE}/.config
-		sudo rm -rf ${LOCALPATH}/.config/bspwm
+        echo ""
+        echo -e "${White} [${Blue}i${White}] Step 1 checking if bspwm and sxhkd are installed"
+        sleep 2
+        if which bspwm >/dev/null; then
+                echo ""
+                echo -e "${White} [${Blue}+${White}] BSPWM is installed, installing configuration"
+                sleep 2
+                cd ${RUTE}/.config
+                sudo rm -rf ${LOCALPATH}/.config/bspwm
                 cp -r bspwm ${LOCALPATH}/.config/bspwm
-		chmod +x ${LOCALPATH}/.config/bspwm/bspwmrc
-	fi
-	if which sxhkd >/dev/null; then
-		echo ""
-		echo -e "${White} [${Blue}+${White}] SXHKD is installed, installing configuration"
-		sleep 2
-		cd ${RUTE}/.config
-		sudo rm -rf ${LOCALPATH}/.config/sxhkd
-		cp -r sxhkd ${LOCALPATH}/.config/sxhkd
-		chmod +x ${LOCALPATH}/.config/sxhkd/sxhkdrc
-	else
-		echo ""
-		echo -e "${White} [${Red}-${White}] SXHKD is not installed, installing sxhkd"
-		sleep 2
-		echo ""
-		sudo apt update
-		echo ""
-		sudo apt install sxhkd -y
-		echo ""
-		echo -e "${White} [${Blue}+${White}] SXHKD is installed, installing configuration"
-		sleep 2
-		cd ${RUTE}/.config
-		sudo rm -rf ${LOCALPATH}/.config/sxhkd
+                chmod +x ${LOCALPATH}/.config/bspwm/bspwmrc
+        else
+                echo ""
+                echo -e "${White} [${Red}-${White}] BSPWM is not installed, installing bspwm"
+                sleep 2
+                echo ""
+                sudo apt update
+                echo ""
+                sudo apt install bspwm -y
+                echo ""
+                echo -e "${White} [${Blue}+${White}] BSPWM is installed, installing configuration"
+                sleep 2
+                cd ${RUTE}/.config
+                sudo rm -rf ${LOCALPATH}/.config/bspwm
+                cp -r bspwm ${LOCALPATH}/.config/bspwm
+                chmod +x ${LOCALPATH}/.config/bspwm/bspwmrc
+        fi
+        if which sxhkd >/dev/null; then
+                echo ""
+                echo -e "${White} [${Blue}+${White}] SXHKD is installed, installing configuration"
+                sleep 2
+                cd ${RUTE}/.config
+                sudo rm -rf ${LOCALPATH}/.config/sxhkd
                 cp -r sxhkd ${LOCALPATH}/.config/sxhkd
                 chmod +x ${LOCALPATH}/.config/sxhkd/sxhkdrc
-	fi
-		echo ""
-		echo -e "${White} [${Blue}i${White}] Step 2 installing fonts"
-		sleep 2
-		echo ""
-		echo -e "${White} [${Blue}+${White}] Installing configuration, the fonts"
-		sleep 3
-		echo ""
-		cd ${RUTE}
-		sudo rm -rf ${LOCALPATH}/.fonts
-		cp -r .fonts ${LOCALPATH}
-		sudo cp -r .fonts /usr/share/fonts
-		echo -e "${White} [${Blue}+${White}] Installed fonts"
-		sleep 2
-		echo ""
-		echo -e "${White} [${Blue}i${White}] Step 3 check if the kitty terminal is installed"
-		sleep 2
+        else
+                echo ""
+                echo -e "${White} [${Red}-${White}] SXHKD is not installed, installing sxhkd"
+                sleep 2
+                echo ""
+                sudo apt update
+                echo ""
+                sudo apt install sxhkd -y
+                echo ""
+                echo -e "${White} [${Blue}+${White}] SXHKD is installed, installing configuration"
+                sleep 2
+                cd ${RUTE}/.config
+                sudo rm -rf ${LOCALPATH}/.config/sxhkd
+                cp -r sxhkd ${LOCALPATH}/.config/sxhkd
+                chmod +x ${LOCALPATH}/.config/sxhkd/sxhkdrc
+        fi
+                echo ""
+                echo -e "${White} [${Blue}i${White}] Step 2 installing fonts"
+                sleep 2
+                echo ""
+                echo -e "${White} [${Blue}+${White}] Installing configuration, the fonts"
+                sleep 3
+                echo ""
+                cd ${RUTE}
+                sudo rm -rf ${LOCALPATH}/.fonts
+                cp -r .fonts ${LOCALPATH}
+                sudo cp -r .fonts /usr/share/fonts
+                echo -e "${White} [${Blue}+${White}] Installed fonts"
+                sleep 2
+                echo ""
+                echo -e "${White} [${Blue}i${White}] Step 3 check if the kitty terminal is installed"
+                sleep 2
 
-	if which kitty >/dev/null; then
-		echo ""
-		echo -e "${White} [${Blue}+${White}] KITTY is installed, installing configuration"
-		sleep 2
-		cd ${RUTE}/.config
-		sudo rm -rf ${LOCALPATH}/.config/kitty
+        if which kitty >/dev/null; then
+                echo ""
+                echo -e "${White} [${Blue}+${White}] KITTY is installed, installing configuration"
+                sleep 2
+                cd ${RUTE}/.config
+                sudo rm -rf ${LOCALPATH}/.config/kitty
                 cp -r kitty ${LOCALPATH}/.config/kitty
-	else
-		echo ""
-		echo -e "${White} [${Red}-${White}] KITTY is not installed, installing kitty"
-		sleep 2
-		echo ""
-		sudo apt update
-		echo ""
-		sudo apt install kitty -y
-		echo ""
-		echo -e "${White} [${Blue}+${White}] KITTY is installed, installing configuration"
-		sleep 2
-		cd ${RUTE}/.config
-		sudo rm -rf ${LOCALPATH}/.config/kitty
+        else
+                echo ""
+                echo -e "${White} [${Red}-${White}] KITTY is not installed, installing kitty"
+                sleep 2
+                echo ""
+                sudo apt update
+                echo ""
+                sudo apt install kitty -y
+                echo ""
+                echo -e "${White} [${Blue}+${White}] KITTY is installed, installing configuration"
+                sleep 2
+                cd ${RUTE}/.config
+                sudo rm -rf ${LOCALPATH}/.config/kitty
                 cp -r kitty ${LOCALPATH}/.config/kitty
-		echo ""
-		echo -e "${White} [${Blue}i${White}] Step 4 check if the picom compositor is installed"
-		sleep 2
-	fi
-	if which picom >/dev/null; then
-		echo ""
-		echo -e "${White} [${Blue}+${White}] PICOM is installed, installing configuration"
-		sleep 2
-		cd ${RUTE}/.config
-		sudo rm -rf ${LOCALPATH}/.config/picom
-                cp -r picom ${LOCALPATH}/.config/picom
-	else
-		echo ""
-		echo -e "${White} [${Red}-${White}] PICOM is not installed, installing picom compositor"
-		sleep 2
-		echo ""
-		sudo apt update
-		echo ""
-		sudo apt install picom -y
-		echo ""
-		echo -e "${White} [${Blue}+${White}] PICOM is installed, installing configuration"
-		sleep 2
-		cd ${RUTE}/.config
+                echo ""
+                echo -e "${White} [${Blue}i${White}] Step 4 check if the picom compositor is installed"
+                sleep 2
+        fi
+        if which picom >/dev/null; then
+                echo ""
+                echo -e "${White} [${Blue}+${White}] PICOM is installed, installing configuration"
+                sleep 2
+                cd ${RUTE}/.config
                 sudo rm -rf ${LOCALPATH}/.config/picom
                 cp -r picom ${LOCALPATH}/.config/picom
-		echo ""
-		echo -e "${White} [${Blue}i${White}] Step 5 check if the neofetch is installed"
-		sleep 2
-	fi
-	if which neofetch >/dev/null; then
-		echo ""
-		echo -e "${White} [${Blue}+${White}] NEOFETCH is installed, installing configuration"
-		sleep 2
-		cd ${RUTE}/.config
-		sudo rm -rf ${LOCALPATH}/.config/neofetch
+        else
+                echo ""
+                echo -e "${White} [${Red}-${White}] PICOM is not installed, installing picom compositor"
+                sleep 2
+                echo ""
+                sudo apt update
+                echo ""
+                sudo apt install picom -y
+                echo ""
+                echo -e "${White} [${Blue}+${White}] PICOM is installed, installing configuration"
+                sleep 2
+                cd ${RUTE}/.config
+                sudo rm -rf ${LOCALPATH}/.config/picom
+                cp -r picom ${LOCALPATH}/.config/picom
+                echo ""
+                echo -e "${White} [${Blue}i${White}] Step 5 check if the neofetch is installed"
+                sleep 2
+        fi
+        if which neofetch >/dev/null; then
+                echo ""
+                echo -e "${White} [${Blue}+${White}] NEOFETCH is installed, installing configuration"
+                sleep 2
+                cd ${RUTE}/.config
+                sudo rm -rf ${LOCALPATH}/.config/neofetch
                 cp -r neofetch ${LOCALPATH}/.config/neofetch
-	else
-		echo ""
-		echo -e "${White} [${Red}-${White}] NEOFETCH is not installed, installing neofetch"
-		sleep 2
-		echo ""
-		sudo apt update
-		echo ""
-		sudo apt install neofetch -y
-		echo ""
-		echo -e "${White} [${Blue}+${White}] NEOFETCH is installed, installing configuration"
-		sleep 2
-		cd ${RUTE}/.config
-		sudo rm -rf ${LOCALPATH}/.config/neofetch
+        else
+                echo ""
+                echo -e "${White} [${Red}-${White}] NEOFETCH is not installed, installing neofetch"
+                sleep 2
+                echo ""
+                sudo apt update
+                echo ""
+                sudo apt install neofetch -y
+                echo ""
+                echo -e "${White} [${Blue}+${White}] NEOFETCH is installed, installing configuration"
+                sleep 2
+                cd ${RUTE}/.config
+                sudo rm -rf ${LOCALPATH}/.config/neofetch
                 cp -r neofetch ${LOCALPATH}/.config/neofetch
                 echo ""
                 echo -e "${White} [${Blue}i${White}] Step 6 check if the ranger is installed"
                 sleep 2
-	fi
-	if which ranger >/dev/null; then
-		echo ""
-		echo -e "${White} [${Blue}+${White}] RANGER is installed, installing configuration"
-		sleep 2
-		cd ${RUTE}/.config
-		sudo rm -rf ${LOCALPATH}/.config/ranger
-                cp -r ranger ${LOCALPATH}/.config/ranger
-	else
-		echo ""
-		echo -e "${White} [${Red}-${White}] RANGER is not installed, installing ranger"
-		sleep 2
-		echo ""
-		sudo apt update
-		echo ""
-		sudo apt install ranger -y
-		echo ""
-		echo -e "${White} [${Blue}+${White}] RANGER is installed, installing configuration"
+        fi
+        if which ranger >/dev/null; then
+                echo ""
+                echo -e "${White} [${Blue}+${White}] RANGER is installed, installing configuration"
                 sleep 2
                 cd ${RUTE}/.config
                 sudo rm -rf ${LOCALPATH}/.config/ranger
                 cp -r ranger ${LOCALPATH}/.config/ranger
-		echo ""
-		echo -e "${White} [${Blue}i${White}] Step 7 check if the cava is installed"
+        else
+                echo ""
+                echo -e "${White} [${Red}-${White}] RANGER is not installed, installing ranger"
                 sleep 2
-	fi
-	if which cava >/dev/null; then
-		echo ""
-		echo -e "${White} [${Blue}+${White}] CAVA is installed, installing configuration"
-		sleep 2
-		cd ${RUTE}/.config
-		sudo rm -rf ${LOCALPATH}/.config/cava
-                cp -r cava ${LOCALPATH}/.config/cava
-	else
-		echo ""
-		echo -e "${White} [${Red}-${White}] CAVA is not installed, installing cava"
-		sleep 2
-		echo ""
-		sudo apt update
-		echo ""
-		sudo apt install cava -y
-		echo ""
-		echo -e "${White} [${Blue}+${White}] CAVA is installed, installing configuration"
-		sleep 2
+                echo ""
+                sudo apt update
+                echo ""
+                sudo apt install ranger -y
+                echo ""
+                echo -e "${White} [${Blue}+${White}] RANGER is installed, installing configuration"
+                sleep 2
+                cd ${RUTE}/.config
+                sudo rm -rf ${LOCALPATH}/.config/ranger
+                cp -r ranger ${LOCALPATH}/.config/ranger
+                echo ""
+                echo -e "${White} [${Blue}i${White}] Step 7 check if the cava is installed"
+                sleep 2
+        fi
+        if which cava >/dev/null; then
+                echo ""
+                echo -e "${White} [${Blue}+${White}] CAVA is installed, installing configuration"
+                sleep 2
                 cd ${RUTE}/.config
                 sudo rm -rf ${LOCALPATH}/.config/cava
                 cp -r cava ${LOCALPATH}/.config/cava
-		echo ""
-		echo -e "${White} [${Blue}i${White}] Step 8 check if the polybar is installed"
-		sleep 2
-	fi
-	if which polybar >/dev/null; then
-		echo ""
-		echo -e "${White} [${Blue}+${White}] POLYBAR is installed, installing configuration"
-		sleep 2
-		cd ${RUTE}/.config
+        else
+                echo ""
+                echo -e "${White} [${Red}-${White}] CAVA is not installed, installing cava"
+                sleep 2
+                echo ""
+                sudo apt update
+                echo ""
+                sudo apt install cava -y
+                echo ""
+                echo -e "${White} [${Blue}+${White}] CAVA is installed, installing configuration"
+                sleep 2
+                cd ${RUTE}/.config
+                sudo rm -rf ${LOCALPATH}/.config/cava
+                cp -r cava ${LOCALPATH}/.config/cava
+                echo ""
+                echo -e "${White} [${Blue}i${White}] Step 8 check if the polybar is installed"
+                sleep 2
+        fi
+        if which polybar >/dev/null; then
+                echo ""
+                echo -e "${White} [${Blue}+${White}] POLYBAR is installed, installing configuration"
+                sleep 2
+                cd ${RUTE}/.config
                 sudo rm -rf ${LOCALPATH}/.config/polybar
                 cp -r polybar ${LOCALPATH}/.config/polybar
-		chmod +x ${LOCALPATH}/.config/polybar/cuts/launch.sh
-		chmod +x ${LOCALPATH}/.config/polybar/cuts/scripts/*.sh
-	else
-		echo ""
-		echo -e "${White} [${Red}-${White}] POLYBAR is not installed, installing polybar"
-		sleep 2
-		echo ""
-		sudo apt update
-		echo ""
-		sudo apt install polybar -y
-		echo ""
-		echo -e "${White} [${Blue}+${White}] POLYBAR is installed, installing configuration"
-		sleep 2
-		cd ${RUTE}/.config
+                chmod +x ${LOCALPATH}/.config/polybar/cuts/launch.sh
+                chmod +x ${LOCALPATH}/.config/polybar/cuts/scripts/*.sh
+        else
+                echo ""
+                echo -e "${White} [${Red}-${White}] POLYBAR is not installed, installing polybar"
+                sleep 2
+                echo ""
+                sudo apt update
+                echo ""
+                sudo apt install polybar -y
+                echo ""
+                echo -e "${White} [${Blue}+${White}] POLYBAR is installed, installing configuration"
+                sleep 2
+                cd ${RUTE}/.config
                 sudo rm -rf ${LOCALPATH}/.config/polybar
                 cp -r polybar ${LOCALPATH}/.config/polybar
-		chmod +x ${LOCALPATH}/.config/polybar/launch.sh
-		chmod +x ${LOCALPATH}/.config/polybar/cuts/scripts/*.sh
-	fi
+                chmod +x ${LOCALPATH}/.config/polybar/launch.sh
+                chmod +x ${LOCALPATH}/.config/polybar/cuts/scripts/*.sh
+        fi
 
 ##############################################################################################
 # Necessary instalation
@@ -552,72 +552,72 @@ if [[ $quest == "y" || $quest == "yes" || $quest == "Y" ]]; then
 
 ##################################### INSTALL THEMES
 
-		missing_dependencies
-		echo -e "${White} [${Blue}i${White}] Step 10 installing bspwm themes"
-		sleep 2
-		cd ${RUTE}
-		cp -r .themes ${LOCALPATH}
-		chmod +x ${LOCALPATH}/.themes/Default/bspwmrc		#8
-		chmod +x ${LOCALPATH}/.themes/FBI/bspwmrc		#7
-		chmod +x ${LOCALPATH}/.themes/DOD/bspwmrc		#6
-		chmod +x ${LOCALPATH}/.themes/NSA/bspwmrc		#5
-		chmod +x ${LOCALPATH}/.themes/CIA/bspwmrc		#4
-		chmod +x ${LOCALPATH}/.themes/PF/bspwmrc		#3
-		echo ""
-		echo -e "${White} [${Blue}+${White}] Installing theme ${Red}Default"
-		sleep 2
-		chmod +x ${LOCALPATH}/.themes/Default/scripts/*.sh
-		echo -e "${White} [${Blue}+${White}] Installing theme ${Cyan}FBI"
-		sleep 2
-		chmod +x ${LOCALPATH}/.themes/FBI/scripts/*.sh
-		echo -e "${White} [${Blue}+${White}] Installing theme ${Black}DOD"
-		sleep 2
-		chmod +x ${LOCALPATH}/.themes/DOD/scripts/*sh
-		echo -e "${White} [${Blue}+${White}] Installing theme ${Purple}NSA"
-		sleep 2
-		chmod +x ${LOCALPATH}/.themes/NSA/scripts/*.sh
-		echo -e "${White} [${Blue}+${White}] Installing theme ${Green}CIA"
-		sleep 2
+                missing_dependencies
+                echo -e "${White} [${Blue}i${White}] Step 10 installing bspwm themes"
+                sleep 2
+                cd ${RUTE}
+                cp -r .themes ${LOCALPATH}
+                chmod +x ${LOCALPATH}/.themes/Default/bspwmrc           #8
+                chmod +x ${LOCALPATH}/.themes/FBI/bspwmrc               #7
+                chmod +x ${LOCALPATH}/.themes/DOD/bspwmrc               #6
+                chmod +x ${LOCALPATH}/.themes/NSA/bspwmrc               #5
+                chmod +x ${LOCALPATH}/.themes/CIA/bspwmrc               #4
+                chmod +x ${LOCALPATH}/.themes/PF/bspwmrc                #3
+                echo ""
+                echo -e "${White} [${Blue}+${White}] Installing theme ${Red}Default"
+                sleep 2
+                chmod +x ${LOCALPATH}/.themes/Default/scripts/*.sh
+                echo -e "${White} [${Blue}+${White}] Installing theme ${Cyan}FBI"
+                sleep 2
+                chmod +x ${LOCALPATH}/.themes/FBI/scripts/*.sh
+                echo -e "${White} [${Blue}+${White}] Installing theme ${Black}DOD"
+                sleep 2
+                chmod +x ${LOCALPATH}/.themes/DOD/scripts/*sh
+                echo -e "${White} [${Blue}+${White}] Installing theme ${Purple}NSA"
+                sleep 2
+                chmod +x ${LOCALPATH}/.themes/NSA/scripts/*.sh
+                echo -e "${White} [${Blue}+${White}] Installing theme ${Green}CIA"
+                sleep 2
                 chmod +x ${LOCALPATH}/.themes/CIA/scripts/*.sh
-		echo -e "${White} [${Blue}+${White}] Installing theme ${Blue}PF"
-		sleep 2
+                echo -e "${White} [${Blue}+${White}] Installing theme ${Blue}PF"
+                sleep 2
                 chmod +x ${LOCALPATH}/.themes/PF/scripts/*.sh
-		echo ""
-		echo -e "${White} [${Blue}i${White}] Step 11 installing bspwm scripts"
-		sleep 2
-		cd ${RUTE}
-		cp -r scripts ${LOCALPATH}/.scripts
-		chmod +x ${LOCALPATH}/.scripts/*.sh
-		chmod +x ${LOCALPATH}/.scripts/wall-scripts/*.sh
-		echo ""
-		echo -e "${White} [${Blue}i${White}] Step 12 Installing the powerlevel10k, fzf, sudo-plugin, and others for the normal user"
-		sleep 2
-		echo ""
-		cd ${RUTE}
-		rm -rf ~/.zshrc; rm -rf ~/.p10k.zsh
-		cp -r .zshrc .p10k.zsh ~/
+                echo ""
+                echo -e "${White} [${Blue}i${White}] Step 11 installing bspwm scripts"
+                sleep 2
+                cd ${RUTE}
+                cp -r scripts ${LOCALPATH}/.scripts
+                chmod +x ${LOCALPATH}/.scripts/*.sh
+                chmod +x ${LOCALPATH}/.scripts/wall-scripts/*.sh
+                echo ""
+                echo -e "${White} [${Blue}i${White}] Step 12 Installing the powerlevel10k, fzf, sudo-plugin, and others for the normal user"
+                sleep 2
+                echo ""
+                cd ${RUTE}
+                rm -rf ~/.zshrc; rm -rf ~/.p10k.zsh
+                cp -r .zshrc .p10k.zsh ~/
                 sudo rm -rf /usr/share/zsh-sudo/
-		cd /usr/share ; sudo mkdir -p zsh-sudo
-		cd zsh-sudo ; sudo wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh 2>/dev/null
-		rm -rf ~/.powerlevel10k
-		cd ; git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k 2>/dev/null
-		echo ""
-		sudo rm -rf ${LOCALPATH}/.scripts/shell-color-scripts
-		cd ${LOCALPATH}/.scripts ; git clone https://github.com/charitarthchugh/shell-color-scripts.git 2>/dev/null
-		chmod +x ${LOCALPATH}/.scripts/shell-color-scripts/colorscripts/*
-		sudo cp -r shell-color-scripts /opt/
-		cd
-		git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf 2>/dev/null
-		~/.fzf/install
-		echo ""
+                cd /usr/share ; sudo mkdir -p zsh-sudo
+                cd zsh-sudo ; sudo wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh 2>/dev/null
+                rm -rf ~/.powerlevel10k
+                cd ; git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k 2>/dev/null
+                echo ""
+                sudo rm -rf ${LOCALPATH}/.scripts/shell-color-scripts
+                cd ${LOCALPATH}/.scripts ; git clone https://github.com/charitarthchugh/shell-color-scripts.git 2>/dev/null
+                chmod +x ${LOCALPATH}/.scripts/shell-color-scripts/colorscripts/*
+                sudo cp -r shell-color-scripts /opt/
+                cd
+                git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf 2>/dev/null
+                ~/.fzf/install
+                echo ""
 
-		echo -e "${White} [${Blue}i${White}] Install pipes"
-		sleep 2
-		cd ${LOCALPATH}/.scripts ; rm -rf pipe*
-		cd ${LOCALPATH}/.scripts ; git clone https://github.com/pipeseroni/pipes.sh.git 2>/dev/null
-		echo ""
-		echo "instalando sudo"
-		sudo ./root.sh
+                echo -e "${White} [${Blue}i${White}] Install pipes"
+                sleep 2
+                cd ${LOCALPATH}/.scripts ; rm -rf pipe*
+                cd ${LOCALPATH}/.scripts ; git clone https://github.com/pipeseroni/pipes.sh.git 2>/dev/null
+                echo ""
+                echo "instalando sudo"
+                sudo ./root.sh
 
 
 fi

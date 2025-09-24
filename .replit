@@ -1,0 +1,6 @@
+modules = ["bash", "python-3.12", "web", "c-clang14", "haskell-ghc9.4"]
+[agent]
+expertMode = true
+
+[nix]
+channel = "stable-25_05"
