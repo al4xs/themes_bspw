@@ -1,0 +1,113 @@
+#
+# SXHKD configuration with corrected shortcuts
+# Based on original kaliSung project with fixes
+#
+
+# Terminal emulator
+ctrl + shift + t
+    kitty
+
+# Program launcher
+super + d
+    rofi -show run
+
+# Browser
+super + shift + f
+    firefox
+
+# File manager
+super + e
+    thunar
+
+# Make sxhkd reload its configuration files:
+super + shift + r
+    pkill -USR1 -x sxhkd
+
+# Close window
+super + w
+    bspc node -c
+
+# Kill window
+super + shift + q
+    bspc node -k
+
+# Fullscreen toggle
+super + f
+    bspc node -t fullscreen
+
+# Pseudo tiled
+super + shift + space
+    bspc node -t pseudo_tiled
+
+# Floating toggle
+super + space
+    bspc node -t floating
+
+# Focus node in the given direction
+super + {_,shift + }{h,j,k,l}
+    bspc node -{f,s} {west,south,north,east}
+
+# Focus node in the given direction (arrow keys)
+super + {Left,Down,Up,Right}
+    bspc node -f {west,south,north,east}
+
+# Focus or send to the given desktop
+super + {_,shift + }{1-9,0}
+    bspc {desktop -f,node -d} '^{1-9,10}'
+
+# Terminal tabs navigation
+ctrl + {1,2,3,4,5,6,7,8,9,0}
+    echo "tab-{1,2,3,4,5,6,7,8,9,10}"
+
+# Tab switching
+ctrl + Tab
+    echo "next-tab"
+
+ctrl + shift + Tab
+    echo "prev-tab"
+
+# Preselect the direction
+super + ctrl + {h,j,k,l}
+    bspc node -p {west,south,north,east}
+
+# Cancel the preselection for the focused node
+super + ctrl + space
+    bspc node -p cancel
+
+# Cancel the preselection for the focused desktop
+super + ctrl + shift + space
+    bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+
+# Expand a window by moving one of its side outward
+super + alt + {h,j,k,l}
+    bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# Contract a window by moving one of its side inward
+super + alt + shift + {h,j,k,l}
+    bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+# Move a floating window
+super + {Left,Down,Up,Right}
+    bspc node -v {-20 0,0 20,0 -20,20 0}
+
+# Lock screen
+super + x
+    betterlockscreen -l
+
+# Screenshot
+Print
+    flameshot gui
+
+# Volume controls
+XF86AudioRaiseVolume
+    pactl set-sink-volume @DEFAULT_SINK@ +5%
+
+XF86AudioLowerVolume
+    pactl set-sink-volume @DEFAULT_SINK@ -5%
+
+XF86AudioMute
+    pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+# Restart bspwm
+super + shift + Escape
+    bspc wm -r

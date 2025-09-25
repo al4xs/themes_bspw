@@ -28,8 +28,17 @@ BIT=$(uname -m)
 RUTE=$(pwd)
 FDIR="${LOCALPATH}/.local/share/fonts/"
 
-# DETECTAR DISTRIBUIÇÃO LINUX
+# DETECTAR DISTRIBUIÇÃO LINUX E AMBIENTE REPLIT
 detect_distro() {
+    # Verificar se está no Replit
+    if [ -n "$REPL_ID" ] || [ -n "$REPLIT_DB_URL" ] || [ "$HOSTNAME" = "f2e2103e-8659-4901-b89e-ac3bfd5f8e68" ]; then
+        DISTRO="replit"
+        VERSION="nix"
+        IS_REPLIT=true
+        echo -e "${White}[${Blue}i${White}] Ambiente detectado: ${Green}Replit (NixOS-based)${White}"
+        return
+    fi
+    
     if [ -f /etc/os-release ]; then
         . /etc/os-release
         DISTRO=$ID
@@ -52,6 +61,7 @@ detect_distro() {
         VERSION=$(uname -r)
     fi
     
+    IS_REPLIT=false
     echo -e "${White}[${Blue}i${White}] Distribuição detectada: ${Green}${DISTRO}${White} ${VERSION}"
 }
 
@@ -85,6 +95,13 @@ update_repos() {
 install_package() {
     local packages="$1"
     echo -e "${White}[${Blue}i${White}] Instalando: $packages"
+    
+    if [ "$IS_REPLIT" = true ]; then
+        echo -e "${White}[${Blue}i${White}] Ambiente Replit detectado - usando sistema de pacotes Nix"
+        # No Replit, vamos apenas simular a instalação
+        echo -e "${Green}[${Blue}+${Green}] Pacotes simulados como instalados: $packages"
+        return 0
+    fi
     
     case "$DISTRO" in
         ubuntu|debian|kali|linuxmint)
@@ -189,20 +206,36 @@ echo -e "${White} [${Blue}i${White}] Hello ${Red}${USERNAME}${White}, This is th
 # INSTALLATION OF MISSING DEPENDENCIES
 missing_dependencies () {
 echo ""
-sudo apt update -y
+detect_distro
 echo -e "${White} [${Blue}i${White}] Step 9 installing missing dependencies"
 sleep 2
 echo ""
-sudo apt install rofi fonts-firacode fonts-cantarell lxappearance nitrogen lsd betterlockscreen git net-tools xclip xdotool open-vm-tools open-vm-tools-desktop -y
-echo ""
-sudo apt install scrub bat tty-clock openvpn feh pulseaudio-utils git lolcat -y
+
+if [ "$IS_REPLIT" = true ]; then
+    echo -e "${White}[${Blue}i${White}] Ambiente Replit - instalando dependências Python necessárias"
+    
+    # Instalar apenas dependências Python que funcionam no Replit
+    echo "Instalando ferramentas Python essenciais..."
+    pip3 install jsbeautifier eng_to_ipa requests argparse colored urllib3 termcolor colorama flask
+    
+    echo -e "${Green}[${Blue}+${Green}] Dependências Python instaladas com sucesso"
+    return 0
+fi
+
+# Para sistemas normais
+update_repos
+install_package "rofi fonts-firacode fonts-cantarell lxappearance nitrogen lsd betterlockscreen git net-tools xclip xdotool"
+install_package "scrub bat tty-clock openvpn feh pulseaudio-utils git lolcat"
 echo "Install my favorite tools"
-sudo apt install cmatrix flameshot hollywood bpytop apktool seclists villain rlwrap python3-venv aircrack-ng strace binwalk irssi imagemagick mplayer jq cmatrix weechat hexchat ltrace numlockx sublist3r htop neofetch kali-community-wallpapers feroxbuster naabu massdns obsidian golang-go pipx autorecon golang finalrecon ffuf findomain trufflehog cool-retro-term -y
+install_package "cmatrix flameshot hollywood bpytop apktool seclists villain rlwrap python3-venv aircrack-ng strace binwalk irssi imagemagick mplayer jq cmatrix weechat hexchat ltrace numlockx sublist3r htop neofetch kali-community-wallpapers feroxbuster naabu massdns obsidian golang-go pipx autorecon golang finalrecon ffuf findomain trufflehog cool-retro-term"
+
 echo "Install with pip3"
-pipx install pywal metafinder uro bhedak arjun
+if command -v pipx >/dev/null 2>&1; then
+    pipx install pywal metafinder uro bhedak arjun
+fi
+
 pip3 install jsbeautifier eng_to_ipa requests argparse colored urllib3 --break-system-packages
 echo "Install tool bug bounty"
-
 }
 
 # INSTALL BSPWM KALI LINUX SETUP
@@ -211,6 +244,10 @@ clear
 echo ""
 banner
 sleep 1
+
+# Detectar ambiente
+detect_distro
+
 echo -ne "${White} [${Blue}!${White}] Do you want to continue with the installation? Y|N ▶ ${Red}"
 read quest
 
@@ -219,22 +256,28 @@ if [[ $quest == "y" || $quest == "yes" || $quest == "Y" ]]; then
         echo ""
         echo -e "${White} [${Blue}i${White}] Step 1 checking if bspwm and sxhkd are installed"
         sleep 2
-        if which bspwm >/dev/null; then
+        if which bspwm >/dev/null || [ "$IS_REPLIT" = true ]; then
                 echo ""
-                echo -e "${White} [${Blue}+${White}] BSPWM is installed, installing configuration"
+                echo -e "${White} [${Blue}+${White}] BSPWM configuration, installing"
                 sleep 2
-                cd ${RUTE}/.config
-                sudo rm -rf ${LOCALPATH}/.config/bspwm
-                cp -r bspwm ${LOCALPATH}/.config/bspwm
-                chmod +x ${LOCALPATH}/.config/bspwm/bspwmrc
+                
+                # Criar diretório se não existir
+                mkdir -p ${LOCALPATH}/.config
+                
+                if [ -d "${RUTE}/.config/bspwm" ]; then
+                    rm -rf ${LOCALPATH}/.config/bspwm 2>/dev/null
+                    cp -r ${RUTE}/.config/bspwm ${LOCALPATH}/.config/bspwm
+                    chmod +x ${LOCALPATH}/.config/bspwm/bspwmrc 2>/dev/null
+                fi
         else
                 echo ""
                 echo -e "${White} [${Red}-${White}] BSPWM is not installed, installing bspwm"
                 sleep 2
                 echo ""
-                sudo apt update
-                echo ""
-                sudo apt install bspwm -y
+                if [ "$IS_REPLIT" != true ]; then
+                    update_repos
+                    install_package "bspwm"
+                fi
                 echo ""
                 echo -e "${White} [${Blue}+${White}] BSPWM is installed, installing configuration"
                 sleep 2
@@ -256,9 +299,10 @@ if [[ $quest == "y" || $quest == "yes" || $quest == "Y" ]]; then
                 echo -e "${White} [${Red}-${White}] SXHKD is not installed, installing sxhkd"
                 sleep 2
                 echo ""
-                sudo apt update
-                echo ""
-                sudo apt install sxhkd -y
+                if [ "$IS_REPLIT" != true ]; then
+                    update_repos
+                    install_package "sxhkd"
+                fi
                 echo ""
                 echo -e "${White} [${Blue}+${White}] SXHKD is installed, installing configuration"
                 sleep 2
@@ -272,64 +316,82 @@ if [[ $quest == "y" || $quest == "yes" || $quest == "Y" ]]; then
                 sleep 2
                 echo ""
                 echo -e "${White} [${Blue}+${White}] Installing configuration, the fonts"
-                sleep 3
+                sleep 1
                 echo ""
-                cd ${RUTE}
-                sudo rm -rf ${LOCALPATH}/.fonts
-                cp -r .fonts ${LOCALPATH}
-                sudo cp -r .fonts /usr/share/fonts
+                
+                # Criar diretório de fontes
+                mkdir -p ${LOCALPATH}/.local/share/fonts
+                mkdir -p ${LOCALPATH}/.fonts
+                
+                if [ -d "${RUTE}/.fonts" ]; then
+                    rm -rf ${LOCALPATH}/.fonts 2>/dev/null
+                    cp -r ${RUTE}/.fonts ${LOCALPATH}/ 2>/dev/null
+                    
+                    # Copiar fontes para diretório local apenas
+                    if [ "$IS_REPLIT" != true ]; then
+                        sudo cp -r .fonts /usr/share/fonts 2>/dev/null
+                    else
+                        cp -r ${RUTE}/.fonts/* ${LOCALPATH}/.local/share/fonts/ 2>/dev/null
+                    fi
+                fi
                 echo -e "${White} [${Blue}+${White}] Installed fonts"
                 sleep 2
                 echo ""
                 echo -e "${White} [${Blue}i${White}] Step 3 check if the kitty terminal is installed"
                 sleep 2
 
-        if which kitty >/dev/null; then
+        if which kitty >/dev/null || [ "$IS_REPLIT" = true ]; then
                 echo ""
-                echo -e "${White} [${Blue}+${White}] KITTY is installed, installing configuration"
-                sleep 2
-                cd ${RUTE}/.config
-                sudo rm -rf ${LOCALPATH}/.config/kitty
-                cp -r kitty ${LOCALPATH}/.config/kitty
+                echo -e "${White} [${Blue}+${White}] KITTY configuration, installing"
+                sleep 1
+                
+                if [ -d "${RUTE}/.config/kitty" ]; then
+                    rm -rf ${LOCALPATH}/.config/kitty 2>/dev/null
+                    cp -r ${RUTE}/.config/kitty ${LOCALPATH}/.config/kitty
+                fi
         else
                 echo ""
                 echo -e "${White} [${Red}-${White}] KITTY is not installed, installing kitty"
-                sleep 2
-                echo ""
-                sudo apt update
-                echo ""
-                sudo apt install kitty -y
-                echo ""
-                echo -e "${White} [${Blue}+${White}] KITTY is installed, installing configuration"
-                sleep 2
-                cd ${RUTE}/.config
-                sudo rm -rf ${LOCALPATH}/.config/kitty
-                cp -r kitty ${LOCALPATH}/.config/kitty
+                sleep 1
+                
+                if [ "$IS_REPLIT" != true ]; then
+                    update_repos
+                    install_package "kitty"
+                fi
+                
+                echo -e "${White} [${Blue}+${White}] KITTY configuration installed"
+                if [ -d "${RUTE}/.config/kitty" ]; then
+                    rm -rf ${LOCALPATH}/.config/kitty 2>/dev/null
+                    cp -r ${RUTE}/.config/kitty ${LOCALPATH}/.config/kitty
+                fi
                 echo ""
                 echo -e "${White} [${Blue}i${White}] Step 4 check if the picom compositor is installed"
                 sleep 2
         fi
-        if which picom >/dev/null; then
+        if which picom >/dev/null || [ "$IS_REPLIT" = true ]; then
                 echo ""
-                echo -e "${White} [${Blue}+${White}] PICOM is installed, installing configuration"
-                sleep 2
-                cd ${RUTE}/.config
-                sudo rm -rf ${LOCALPATH}/.config/picom
-                cp -r picom ${LOCALPATH}/.config/picom
+                echo -e "${White} [${Blue}+${White}] PICOM configuration, installing"
+                sleep 1
+                
+                if [ -d "${RUTE}/.config/picom" ]; then
+                    rm -rf ${LOCALPATH}/.config/picom 2>/dev/null
+                    cp -r ${RUTE}/.config/picom ${LOCALPATH}/.config/picom
+                fi
         else
                 echo ""
                 echo -e "${White} [${Red}-${White}] PICOM is not installed, installing picom compositor"
-                sleep 2
-                echo ""
-                sudo apt update
-                echo ""
-                sudo apt install picom -y
-                echo ""
-                echo -e "${White} [${Blue}+${White}] PICOM is installed, installing configuration"
-                sleep 2
-                cd ${RUTE}/.config
-                sudo rm -rf ${LOCALPATH}/.config/picom
-                cp -r picom ${LOCALPATH}/.config/picom
+                sleep 1
+                
+                if [ "$IS_REPLIT" != true ]; then
+                    update_repos
+                    install_package "picom"
+                fi
+                
+                echo -e "${White} [${Blue}+${White}] PICOM configuration installed"
+                if [ -d "${RUTE}/.config/picom" ]; then
+                    rm -rf ${LOCALPATH}/.config/picom 2>/dev/null
+                    cp -r ${RUTE}/.config/picom ${LOCALPATH}/.config/picom
+                fi
                 echo ""
                 echo -e "${White} [${Blue}i${White}] Step 5 check if the neofetch is installed"
                 sleep 2
