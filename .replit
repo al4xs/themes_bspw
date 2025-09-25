@@ -1,4 +1,4 @@
-modules = ["bash", "python-3.12", "web", "c-clang14", "haskell-ghc9.4"]
+modules = ["bash", "web", "c-clang14", "haskell-ghc9.4", "python-3.11", "nodejs-20"]
 [agent]
 expertMode = true
 
