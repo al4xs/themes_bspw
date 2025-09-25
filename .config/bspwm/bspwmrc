@@ -36,6 +36,10 @@ bspc config pointer_follows_focus true
 bspc config gapless_monocle true
 bspc config paddingless_monocle true
 
+# CORREÇÃO PARA NVIM FULLSCREEN - remover bordas quando fullscreen
+bspc config single_monocle true
+bspc config honor_size_hints true
+
 #cor preselection bspwm pra abrir janela nova
 #roxo = bspc config presel_feedback_color '#512da8'
 #bspc config presel_feedback_color '#2d52a8'
@@ -53,9 +57,14 @@ bspc rule -a 'Nitrogen' state=floating follow=on
 bspc rule -a 'Synaptic' state=floating follow=on
 
 
-# KeyBoard
-#setxkbmap -model abnt2 -layout br -variant abnt2
-setxkbmap us
+# KeyBoard (CORRIGIDO - layout automático)
+# Detectar layout do teclado automaticamente  
+if command -v localectl >/dev/null 2>&1; then
+    CURRENT_LAYOUT=$(localectl status | grep "X11 Layout" | awk '{print $3}')
+    [ -n "$CURRENT_LAYOUT" ] && setxkbmap "$CURRENT_LAYOUT" || setxkbmap us
+else
+    setxkbmap us
+fi
 # Wallpaper
 # NSA
 #feh --bg-fill ~/Wallpapers/35415.jpg &

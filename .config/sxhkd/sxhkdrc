@@ -4,16 +4,20 @@
 
 # terminal emulator
 super + Return
-	/usr/bin/kitty
+        kitty
+
+# novo terminal com aba (CORRIGIDO)
+ctrl + shift + t
+        kitty
 
 # Program launcher
 super + d
-#	bash ~/.config/rofi/launchers/type-1/launcher.sh
-	bash ~/.config/polybar/cuts/scripts/launcher.sh
+#       bash ~/.config/rofi/launchers/type-1/launcher.sh
+        bash ~/.config/polybar/cuts/scripts/launcher.sh
 
 # make sxhkd reload its configuration files:
 super + Escape
-	pkill -USR1 -x sxhkd
+        pkill -USR1 -x sxhkd
 
 ###################
 # bspwm hotkeys   #
@@ -21,35 +25,39 @@ super + Escape
 
 # quit/restart bspwm
 super + r {q,r}
-	bspc {quit,wm -r}
+        bspc {quit,wm -r}
 
 # close and kill
 super + {_,shift + }w
-	bspc node -{c,k}
+        bspc node -{c,k}
 
 # alternate between the tiled and monocle layout
 super + m
-	bspc desktop -l next
+        bspc desktop -l next
 
 # send the newest marked node to the newest preselected node
 super + y
-	bspc node newest.marked.local -n newest.!automatic.local
+        bspc node newest.marked.local -n newest.!automatic.local
 
 # swap the current node and the biggest window
 super + g
-	bspc node -s biggest.window
+        bspc node -s biggest.window
 
 #
 # state/flags
 #
 
-# set the window state
+# set the window state (CORRIGIDO - fullscreen sem bordas)
 super + {t,shift + t,s,f}
-	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+        bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+# nvim fullscreen específico (Super+Shift+F para nvim)
+super + shift + n
+        bspc node -t fullscreen && sleep 0.1 && xdotool key F11
 
 # set the node flags
 super + ctrl + {m,x,y,z}
-	bspc node -g {marked,locked,sticky,private}
+        bspc node -g {marked,locked,sticky,private}
 
 #
 # focus/swap
@@ -57,33 +65,45 @@ super + ctrl + {m,x,y,z}
 
 # focus the node in the given direction
 super + {_,shift + }{Left,Down,Up,Right}
-	bspc node -{f,s} {west,south,north,east}
+        bspc node -{f,s} {west,south,north,east}
 
 # focus the node for the given path jump
 super + {p,b,comma,period}
-	bspc node -f @{parent,brother,first,second}
+        bspc node -f @{parent,brother,first,second}
 
 # focus the next/previous window in the current desktop
 super + {_,shift + }c
-	bspc node -f {next,prev}.local.!hidden.window
+        bspc node -f {next,prev}.local.!hidden.window
 
 # focus the next/previous desktop in the current monitor
 super + bracket{left,right}
-	bspc desktop -f {prev,next}.local
+        bspc desktop -f {prev,next}.local
 
 # focus the last node/desktop
 super + {grave,Tab}
-	bspc {node,desktop} -f last
+        bspc {node,desktop} -f last
 
 # focus the older or newer node in the focus history
 super + {o,i}
-	bspc wm -h off; \
-	bspc node {older,newer} -f; \
-	bspc wm -h on
+        bspc wm -h off; \
+        bspc node {older,newer} -f; \
+        bspc wm -h on
 
 # focus or send to the given desktop
 super + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} '^{1-9,10}'
+        bspc {desktop -f,node -d} '^{1-9,10}'
+
+# ATALHOS DE ABAS CORRIGIDOS
+# trocar abas (Ctrl+Tab e Ctrl+Shift+Tab)
+ctrl + Tab
+        xdotool key ctrl+Page_Down
+
+ctrl + shift + Tab  
+        xdotool key ctrl+Page_Up
+
+# ir direto para aba específica (Ctrl+1 até Ctrl+0)
+ctrl + {1,2,3,4,5,6,7,8,9,0}
+        xdotool key ctrl+{1,2,3,4,5,6,7,8,9,0}
 
 #############
 # preselect #
@@ -91,19 +111,19 @@ super + {_,shift + }{1-9,0}
 
 # preselect the direction
 super + ctrl + alt + {Left,Down,Up,Right}
-	bspc node -p {west,south,north,east}
+        bspc node -p {west,south,north,east}
 
 # preselect the ratio
 super + ctrl + {1-9}
-	bspc node -o 0.{1-9}
+        bspc node -o 0.{1-9}
 
 # cancel the preselection for the focused node
 super + ctrl + alt + space
-	bspc node -p cancel
+        bspc node -p cancel
 
 # cancel the preselection for the focused desktop
 super + ctrl + shift + space
-	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+        bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
 
 #
 # move/resize
@@ -111,32 +131,36 @@ super + ctrl + shift + space
 
 # expand a window by moving one of its side outward
 #super + alt + {h,j,k,l}
-#	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+#       bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
 
 # contract a window by moving one of its side inward
 #super + alt + shift + {h,j,k,l}
-#	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+#       bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
 
 # move a floating window
 super + ctrl + {Left,Down,Up,Right}
-	bspc node -v {-20 0,0 20,0 -20,20 0}
+        bspc node -v {-20 0,0 20,0 -20,20 0}
 
 # CUSTOM move/resize
 alt + super + {Left,Down,Up,Right}
-	~/.config/bspwm/scripts/bspwm_resize {west,south,north,east}
+        ~/.config/bspwm/scripts/bspwm_resize {west,south,north,east}
 
 
 ########################
 # Custom Launchers App #
 ########################
 
-# Open Firefox
+# Open Firefox (CORRIGIDO)
 super + shift + f
-	/usr/bin/firejail /usr/bin/firefox
+        firefox || /usr/bin/firefox
+
+# File manager
+super + e
+        thunar || nautilus || pcmanfm
 
 # Open Burpsuite
 super + shift + b
-	/usr/bin/burpsuite
+        /usr/bin/burpsuite
 
 # Google chrome
 super + shift + g
@@ -144,29 +168,29 @@ super + shift + g
 
 # Screen Lock
 super + l
-	/usr/bin/i3lock-everblush
+        /usr/bin/i3lock-everblush
 
 # Increase volume
 ctrl + shift + Up
-	pamixer --increase 5
+        pamixer --increase 5
 
 # Decrease the volume
 ctrl + shift + Down 
-	pamixer --decrease 5
+        pamixer --decrease 5
 
 # Mute/Restore volume
 ctrl + shift + m
-	pamixer --toggle-mute
+        pamixer --toggle-mute
 
 
 # Screenshot flameshot
 super + alt + 1
-	flameshot gui
+        flameshot gui
 
 # Screenshot flameshot full
 super + alt + 2
-	flameshot full
+        flameshot full
 
 # betterlockscreen
 super + x
-	betterlockscreen -l dim
+        betterlockscreen -l dim

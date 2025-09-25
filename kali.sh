@@ -218,7 +218,20 @@ if [ "$IS_REPLIT" = true ]; then
     echo "Instalando ferramentas Python essenciais..."
     pip3 install jsbeautifier eng_to_ipa requests argparse colored urllib3 termcolor colorama flask
     
-    echo -e "${Green}[${Blue}+${Green}] Dependências Python instaladas com sucesso"
+    # APLICAR CORREÇÕES DOS ATALHOS E CONFIGS  
+    echo -e "${White}[${Blue}i${White}] Aplicando correções de atalhos e configurações..."
+    
+    # Corrigir fonte no kitty se existir
+    if [ -f "${LOCALPATH}/.config/kitty/kitty.conf" ]; then
+        sed -i 's/font_family.*ComicMono/font_family      Fira Code/' "${LOCALPATH}/.config/kitty/kitty.conf" 2>/dev/null
+        sed -i 's/#font_family.*Fira Code/font_family      Fira Code/' "${LOCALPATH}/.config/kitty/kitty.conf" 2>/dev/null
+        echo -e "${Green}[${Blue}+${Green}] Fonte Fira Code aplicada"
+    fi
+    
+    # Usar nvim existente do sistema - não criar configs desnecessários
+    echo -e "${Green}[${Blue}+${Green}] Usando nvim existente do sistema"
+    
+    echo -e "${Green}[${Blue}+${Green}] Dependências e correções aplicadas com sucesso"
     return 0
 fi
 
@@ -744,8 +757,11 @@ if [[ $quest == "y" || $quest == "yes" || $quest == "Y" ]]; then
 ################################## extra configs
 
 
-                echo -e "${White} [${Blue}i${White}] installing vim config"
-                echo -e "set nocompatible\nset nu\nsyntax on\nset encoding=utf-8\n\nset showcmd\nfiletype plugin indent on\n\nset tabstop=2\nset shiftwidth=2\nset expandtab\nset backspace=indent,eol,start\n\nset hlsearch\nset incsearch\nset ignorecase\nset smartcase" > ~/.vimrc
+                echo -e "${White} [${Blue}i${White}] usando configuração vim/nvim existente do sistema"
+                # NÃO sobrescrever configs existentes - usar o que já está no sistema
+                if [ ! -f ~/.vimrc ] && [ ! -f ~/.config/nvim/init.vim ]; then
+                    echo -e "set nu\nsyntax on\nset tabstop=4\nset shiftwidth=4" > ~/.vimrc
+                fi
                 echo -e ""
 
 
