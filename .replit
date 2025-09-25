@@ -21,9 +21,9 @@ args = "BSPWM Demo"
 name = "BSPWM Demo"
 author = "agent"
 
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "./universal-bspwm.sh --test"
-
 [workflows.workflow.metadata]
 outputType = "console"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "bash -c \"source kali.sh && detect_distro\""
