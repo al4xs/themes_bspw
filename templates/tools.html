@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}Security Tools - BSPWM Kali Demo{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="text-center mb-5 matrix-text">
+            <i class="fas fa-tools"></i> Security Tools Arsenal
+        </h1>
+    </div>
+</div>
+
+<div class="row">
+    {% for tool in tools %}
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card h-100">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    {% if tool.category == 'Web Security' %}
+                        <i class="fas fa-globe text-danger"></i>
+                    {% elif tool.category == 'Training' %}
+                        <i class="fas fa-graduation-cap text-primary"></i>
+                    {% elif tool.category == 'Linguistics' %}
+                        <i class="fas fa-language text-warning"></i>
+                    {% elif tool.category == 'Visual' %}
+                        <i class="fas fa-eye text-success"></i>
+                    {% elif tool.category == 'Networking' %}
+                        <i class="fas fa-network-wired text-info"></i>
+                    {% else %}
+                        <i class="fas fa-cog"></i>
+                    {% endif %}
+                    {{ tool.name }}
+                </h5>
+                <small class="text-muted">{{ tool.category }}</small>
+            </div>
+            <div class="card-body d-flex flex-column">
+                <p class="flex-grow-1">{{ tool.description }}</p>
+                <a href="{{ tool.endpoint }}" class="btn btn-primary">
+                    <i class="fas fa-play"></i> Launch Tool
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="row mt-5">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-info-circle"></i> About These Tools</h3>
+            </div>
+            <div class="card-body">
+                <p>These tools are web-adapted versions of the security utilities included in the original kaliSung BSPWM setup. The original project includes many more command-line tools and system integrations:</p>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Original Command-Line Tools:</h5>
+                        <ul>
+                            <li><strong>deepce.sh</strong> - Docker enumeration and escapes</li>
+                            <li><strong>linpeas.sh</strong> - Linux privilege escalation</li>
+                            <li><strong>parsing_html.sh</strong> - HTML link extraction</li>
+                            <li><strong>myfunctions.sh</strong> - Shodan queries and recon</li>
+                            <li><strong>Various colorscripts</strong> - Terminal aesthetics</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>System Integration Features:</h5>
+                        <ul>
+                            <li><strong>BSPWM</strong> - Tiling window manager</li>
+                            <li><strong>Polybar</strong> - Status bar with target display</li>
+                            <li><strong>Rofi</strong> - Application launcher</li>
+                            <li><strong>Firefox Cascade Theme</strong> - Minimalist browser</li>
+                            <li><strong>Custom Shortcuts</strong> - Keyboard-driven workflow</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="terminal mt-3">
+                    <div class="text-center">
+                        <span style="color: var(--nsa-red);">█ █ █</span> 
+                        <span style="color: var(--nsa-accent);">HACK THE PLANET</span> 
+                        <span style="color: var(--nsa-red);">█ █ █</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

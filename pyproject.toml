@@ -1,0 +1,12 @@
+[project]
+name = "repl-nix-workspace"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.11"
+dependencies = [
+    "colorama>=0.4.6",
+    "eng-to-ipa>=0.0.2",
+    "flask>=3.1.2",
+    "requests>=2.32.5",
+    "termcolor>=3.1.0",
+]

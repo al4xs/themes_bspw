@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}Web Fuzzing Tool - BSPWM Kali Demo{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="text-center mb-4 matrix-text">
+            <i class="fas fa-search"></i> Web Directory Fuzzing
+        </h1>
+        <p class="text-center text-muted">Test common web directories and files on target URLs</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-globe"></i> Target Configuration</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="url" class="form-label">Target URL:</label>
+                        <input type="text" class="form-control" id="url" name="url" 
+                               placeholder="example.com or http://example.com" 
+                               value="{{ target or '' }}" required>
+                        <div class="form-text">Enter a domain or full URL to test</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-rocket"></i> Start Fuzzing
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if results %}
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-list"></i> Fuzzing Results for {{ target }}</h3>
+            </div>
+            <div class="card-body">
+                <div class="terminal">
+                    <div class="mb-3">
+                        <span style="color: var(--nsa-accent);">kali@nsa-theme:~$</span> 
+                        python3 fuzzing.py {{ target }}
+                    </div>
+                    
+                    {% for result in results %}
+                    <div class="mb-1">
+                        {% if result.result == 'Found' %}
+                            <span class="status-found">[+] Found</span> 
+                        {% elif result.result == 'Not Found' %}
+                            <span class="text-muted">[-] Not Found</span> 
+                        {% else %}
+                            <span class="status-other">[?] {{ result.status }}</span> 
+                        {% endif %}
+                        {{ result.url }} 
+                        <span class="text-muted">({{ result.status }})</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <div class="mt-3">
+                    <h5>Summary:</h5>
+                    <ul>
+                        <li><strong>{{ results|selectattr('result', 'equalto', 'Found')|list|length }}</strong> directories/files found</li>
+                        <li><strong>{{ results|selectattr('result', 'equalto', 'Not Found')|list|length }}</strong> not found</li>
+                        <li><strong>{{ results|selectattr('result', 'equalto', 'Other')|list|length }}</strong> other responses</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-info-circle"></i> About This Tool</h3>
+            </div>
+            <div class="card-body">
+                <p>This is a simplified version of the fuzzing.py script from the kaliSung project. The original script uses wordlists from <code>/usr/share/wordlists/dirbuster/</code> to test thousands of potential directories and files.</p>
+                
+                <div class="terminal">
+                    <div><strong>Original Script Usage:</strong></div>
+                    <div>python3 ~/hacktools/fuzzing.py</div>
+                    <div># Tests against testphp.vulnweb.com by default</div>
+                    <div># Uses DirBuster medium wordlist</div>
+                    <div># Reports HTTP status codes</div>
+                </div>
+                
+                <div class="mt-3">
+                    <h5>Common Directories Tested:</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul>
+                                <li>/admin - Admin panels</li>
+                                <li>/login - Login pages</li>
+                                <li>/dashboard - User dashboards</li>
+                                <li>/config - Configuration files</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul>
+                                <li>/backup - Backup files</li>
+                                <li>/test - Test environments</li>
+                                <li>/robots.txt - Robot exclusions</li>
+                                <li>And many more...</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="alert" style="background-color: #1e2229; border: 1px solid var(--nsa-red); color: var(--nsa-red);">
+                    <strong>Ethical Use Only:</strong> Only use this tool on systems you own or have explicit permission to test.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

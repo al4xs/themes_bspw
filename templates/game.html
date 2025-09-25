@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+
+{% block title %}Try Harder Game - BSPWM Kali Demo{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="text-center mb-4 matrix-text">
+            <i class="fas fa-gamepad"></i> {{ game.title }}
+        </h1>
+        <p class="text-center text-muted">{{ game.description }}</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-play-circle"></i> Game Overview</h3>
+            </div>
+            <div class="card-body">
+                <p>{{ game.description }}</p>
+                
+                <h5>Features:</h5>
+                <ul>
+                    {% for feature in game.features %}
+                    <li>{{ feature }}</li>
+                    {% endfor %}
+                </ul>
+                
+                <div class="terminal">
+                    <div class="text-center mb-3">
+                        <span style="color: var(--nsa-red);">========================================================================</span>
+                    </div>
+                    <div class="text-center mb-3">
+                        <span style="color: var(--nsa-blue);">       WELCOME TO 'TRY HARDER': The Penetration Testing Simulation      </span>
+                    </div>
+                    <div class="text-center mb-3">
+                        <span style="color: var(--nsa-red);">========================================================================</span>
+                    </div>
+                    <div class="mb-2">Current Host: 0</div>
+                    <div class="mb-2">Points: 0</div>
+                    <div class="mb-3">Type 'reset' to reset the game or press Enter to continue:</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-terminal"></i> Game Simulation</h3>
+            </div>
+            <div class="card-body">
+                <p>Below is a sample gameplay session from the original Try Harder game:</p>
+                
+                <div class="terminal">
+                    <div class="mb-2" style="color: var(--nsa-accent);">Host 1: Vulnerable Web Server</div>
+                    <div class="mb-2">You are connected to a Kali Linux machine. Your first task is to find your network address.</div>
+                    <div class="mb-2" style="color: #ffff00;">Hint: Use a command that shows network interfaces.</div>
+                    <div class="mb-2">
+                        <span style="color: var(--nsa-accent);">kali@try-harder:~$</span> 
+                        <span class="text-success">ifconfig</span>
+                    </div>
+                    <div class="mb-2" style="color: var(--nsa-accent);">Output: inet 192.168.1.100  netmask 255.255.255.0</div>
+                    <div class="mb-2">Great! Now proceed to scan the target host.</div>
+                    <div class="mb-2" style="color: #ffff00;">Hint: Use a popular network scanning tool to scan IP 192.168.1.1.</div>
+                    <div class="mb-2">
+                        <span style="color: var(--nsa-accent);">kali@try-harder:~$</span> 
+                        <span class="text-success">nmap -sS 192.168.1.1</span>
+                    </div>
+                    <div class="mb-2" style="color: var(--nsa-accent);">Scan Output: 1 open port - 80/tcp open</div>
+                    <div class="text-success">+1 Point! Moving to next challenge...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <h3><i class="fas fa-keyboard"></i> Sample Commands</h3>
+            </div>
+            <div class="card-body">
+                <p>Commands you might encounter in the game:</p>
+                <ul>
+                    {% for command in game.sample_commands %}
+                    <li><code>{{ command }}</code></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <h3><i class="fas fa-trophy"></i> Game Progression</h3>
+            </div>
+            <div class="card-body">
+                <p>The game includes multiple hosts with increasing difficulty:</p>
+                <ul>
+                    <li><strong>Host 1:</strong> Basic network discovery</li>
+                    <li><strong>Host 2:</strong> Database enumeration</li>
+                    <li><strong>Host 3:</strong> Web application testing</li>
+                    <li><strong>Host 4:</strong> Privilege escalation</li>
+                    <li><strong>Host 5:</strong> Advanced exploitation</li>
+                </ul>
+                
+                <div class="terminal mt-3">
+                    <div class="text-center">
+                        <span style="color: var(--nsa-red);">TRY HARDER!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-info-circle"></i> About the Original Game</h3>
+            </div>
+            <div class="card-body">
+                <p>The original game-tryharder.py is an interactive Python script that simulates penetration testing scenarios. It's designed for educational purposes to teach cybersecurity concepts in a gamified environment.</p>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Technical Features:</h5>
+                        <ul>
+                            <li>Colorized terminal output using colorama</li>
+                            <li>Multi-level progression system</li>
+                            <li>Save/load functionality</li>
+                            <li>Realistic command simulation</li>
+                            <li>Point scoring system</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Educational Value:</h5>
+                        <ul>
+                            <li>Hands-on penetration testing practice</li>
+                            <li>Command-line familiarity building</li>
+                            <li>Security tool usage training</li>
+                            <li>Methodology reinforcement</li>
+                            <li>Safe learning environment</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="terminal mt-3">
+                    <div><strong>Original Usage:</strong></div>
+                    <div>python3 ~/hacktools/game-tryharder.py</div>
+                    <div># Follow prompts and enter commands</div>
+                    <div># Earn points for correct answers</div>
+                    <div># Progress through security scenarios</div>
+                </div>
+                
+                <div class="alert mt-3" style="background-color: #1e2229; border: 1px solid var(--nsa-accent); color: var(--nsa-accent);">
+                    <strong>Educational Focus:</strong> This game helps cybersecurity students learn real-world penetration testing commands and methodologies in a safe, controlled environment.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

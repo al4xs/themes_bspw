@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="text-center mb-5">
+            <h1 class="matrix-text display-4">
+                <i class="fas fa-user-secret"></i> {{ project_info.name }}
+            </h1>
+            <p class="lead">{{ project_info.description }}</p>
+            <p>Created by <strong>{{ project_info.author }}</strong></p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <h3><i class="fas fa-info-circle"></i> Project Overview</h3>
+            </div>
+            <div class="card-body">
+                <p>This project is a comprehensive Kali Linux BSPWM (Binary Space Partitioning Window Manager) customization that creates an NSA-themed hacker environment optimized for CTF competitions and cybersecurity work.</p>
+                
+                <h5>Key Features:</h5>
+                <ul>
+                    {% for feature in project_info.features %}
+                    <li>{{ feature }}</li>
+                    {% endfor %}
+                </ul>
+                
+                <div class="mt-4">
+                    <a href="{{ url_for('tools') }}" class="btn btn-primary">
+                        <i class="fas fa-tools"></i> Explore Tools
+                    </a>
+                    <a href="{{ url_for('config_demo') }}" class="btn btn-outline-success ms-2">
+                        <i class="fas fa-cogs"></i> View Config
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <h3><i class="fas fa-desktop"></i> BSPWM Environment</h3>
+            </div>
+            <div class="card-body">
+                <p>The original project transforms Kali Linux into a keyboard-driven, tiling window manager environment perfect for cybersecurity professionals.</p>
+                
+                <div class="terminal">
+                    <div class="mb-2"><span style="color: #00ff00;">kali@nsa-theme:~$</span> neofetch</div>
+                    <div class="mb-1">OS: Kali GNU/Linux Rolling</div>
+                    <div class="mb-1">WM: bspwm</div>
+                    <div class="mb-1">Theme: NSA Dark [GTK3]</div>
+                    <div class="mb-1">Terminal: kitty</div>
+                    <div class="mb-1">CPU: Intel i7 (8) @ 3.6GHz</div>
+                    <div><span style="color: #ff0000;">Hack The Planet!</span></div>
+                </div>
+                
+                <h5>Quick Commands:</h5>
+                <div class="terminal">
+                    <div><code>Windows + ENTER</code> - Open terminal</div>
+                    <div><code>Windows + d</code> - Application menu</div>
+                    <div><code>Windows + w</code> - Close window</div>
+                    <div><code>settarget IP hostname</code> - Set target in polybar</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-shield-alt"></i> Security Tools Collection</h3>
+            </div>
+            <div class="card-body">
+                <p>This demonstration showcases various cybersecurity tools and scripts included in the original kaliSung project, adapted for web interaction:</p>
+                
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="text-center mb-3">
+                            <i class="fas fa-search fa-3x mb-2" style="color: var(--nsa-red);"></i>
+                            <h5>Web Fuzzing</h5>
+                            <p class="small">Directory and file discovery</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center mb-3">
+                            <i class="fas fa-gamepad fa-3x mb-2" style="color: var(--nsa-blue);"></i>
+                            <h5>Training Game</h5>
+                            <p class="small">Penetration testing simulation</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center mb-3">
+                            <i class="fas fa-network-wired fa-3x mb-2" style="color: var(--nsa-accent);"></i>
+                            <h5>Network Recon</h5>
+                            <p class="small">IP and domain analysis</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center mb-3">
+                            <i class="fas fa-language fa-3x mb-2" style="color: #ffff00;"></i>
+                            <h5>Word Mining</h5>
+                            <p class="small">Language learning tools</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="alert" style="background-color: #1e2229; border: 1px solid var(--nsa-red); color: var(--nsa-red);">
+            <h5><i class="fas fa-exclamation-triangle"></i> Disclaimer</h5>
+            <p class="mb-0">This demonstration is for educational purposes only. The original tools should be used only for authorized penetration testing and educational purposes. Any misuse is not the responsibility of the author or contributors.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
